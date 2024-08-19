@@ -1,6 +1,4 @@
-﻿using System.Security.Principal;
-
-namespace AyteeDE.StreamAdapter.Configuration;
+﻿namespace AyteeDE.StreamAdapter.Configuration;
 
 public class EndpointConfiguration
 {

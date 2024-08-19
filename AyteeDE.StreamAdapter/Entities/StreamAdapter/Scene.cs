@@ -2,7 +2,7 @@
 
 public abstract class Scene
 {
-    public abstract string Name { get; init; }
+    public abstract string Name { get; set; }
     public override string ToString()
     {
         return Name;
