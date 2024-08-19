@@ -6,17 +6,17 @@ public class EndpointConfiguration
     public string? Host { get; set; }
     public int? Port { get; set; }
     public string? Token { get; set; }
-    private bool _enableAuthentication;
-    public bool EnableAuthentication
+    private bool _authenticationEnabled;
+    public bool AuthenticationEnabled
     {
-        get => _enableAuthentication;
+        get => _authenticationEnabled;
         set
         {
             if(!value)
             {
                 Token = null;
             }
-            _enableAuthentication = value;
+            _authenticationEnabled = value;
         }
     }
 }
