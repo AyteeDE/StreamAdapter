@@ -17,9 +17,9 @@ public class WebsocketConnection
     }
     public async Task<bool> ConnectAsync(string endpoint)
     {
-        Uri uri = BuildUri(endpoint);
         if(!IsConnected)
         {
+            Uri uri = BuildUri(endpoint);
             try
             {
                 await _ws.ConnectAsync(uri, CancellationToken.None);

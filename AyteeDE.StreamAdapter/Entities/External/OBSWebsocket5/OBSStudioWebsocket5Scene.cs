@@ -1,4 +1,5 @@
-﻿using AyteeDE.StreamAdapter.Entities.StreamAdapter;
+﻿using AyteeDE.StreamAdapter.Communication.Websocket;
+using AyteeDE.StreamAdapter.Entities.StreamAdapter;
 
 namespace AyteeDE.StreamAdapter.Entities.External;
 

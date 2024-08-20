@@ -1,9 +1,6 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
-using AyteeDE.StreamAdapter.Communication;
-using AyteeDE.StreamAdapter.Communication.Websocket;
-using AyteeDE.StreamAdapter.Communication.Websocket.OBSStudioWebsocket5;
 using AyteeDE.StreamAdapter.Configuration;
 using AyteeDE.StreamAdapter.Entities.External;
 using AyteeDE.StreamAdapter.Entities.StreamAdapter;
@@ -24,7 +21,8 @@ public class OBSStudioWebsocket5Request : IRequest
     public OBSStudioWebsocket5Request(EndpointConfiguration configuration)
     {
         _configuration = configuration;
-        _websocketConnection.MessageReceived += OnMessageReceived;  
+        _websocketConnection.MessageReceived += OnMessageReceived;
+        _websocketConnection.ConnectAsync(Endpoint);  
     }
 #region Outgoing Message Handling
     private async Task<OBSStudioWebsocket5Message> SendMessageAndWaitForResponse(OBSStudioWebsocket5Message message)
@@ -51,19 +49,6 @@ public class OBSStudioWebsocket5Request : IRequest
     {
         if (await _websocketConnection.ConnectAsync(Endpoint))
         {
-            if(!_isIdentified)
-            {
-                var helloMessage = await GetHelloMessage();
-                string challenge = string.Empty;
-                string salt = string.Empty;
-                if(_configuration.AuthenticationEnabled)
-                {
-                    challenge = helloMessage.D.AuthenticationData.Challenge;
-                    salt = helloMessage.D.AuthenticationData.Salt;
-                }
-                await Identify(challenge, salt);
-            }
-
             OBSStudioWebsocket5Message message = new OBSStudioWebsocket5Message();
             message.Op = 6;
             message.D = new OBSStudioWebsocket5MessageData();
@@ -76,8 +61,16 @@ public class OBSStudioWebsocket5Request : IRequest
             return null;
         }
     }
-    private async Task<bool> Identify(string challenge, string salt)
+    private async Task<bool> Identify(OBSStudioWebsocket5Message helloMessage)
     {
+        string challenge = string.Empty;
+        string salt = string.Empty;
+        if(_configuration.AuthenticationEnabled && helloMessage.D.AuthenticationData != null)
+        {
+            challenge = helloMessage.D.AuthenticationData.Challenge;
+            salt = helloMessage.D.AuthenticationData.Salt;
+        }
+        
         OBSStudioWebsocket5Message message = new OBSStudioWebsocket5Message();
         message.Op = 1;
         message.D = new OBSStudioWebsocket5MessageData();
@@ -90,18 +83,6 @@ public class OBSStudioWebsocket5Request : IRequest
 
         await _websocketConnection.SendAsync(message);
         return true;
-    }
-    private async Task<OBSStudioWebsocket5Message> GetHelloMessage()
-    {
-        while(_receivedMessages.FirstOrDefault(m=> m.Op == 0) == null)
-        {
-            //Delay polling by 50ms
-            await Task.Delay(25);
-        }
-
-        var helloMessage = _receivedMessages.FirstOrDefault(m => m.Op == 0);
-        _receivedMessages.Remove(helloMessage);
-        return helloMessage;
     }
     private string BuildAuthenticationString(string challenge, string salt)
     {
@@ -124,12 +105,15 @@ public class OBSStudioWebsocket5Request : IRequest
             HandleReceivedMessage(e.Message);
         }
     }
-    private void HandleReceivedMessage(string message)
+    private async void HandleReceivedMessage(string message)
     {
         var messageObj = JsonSerializer.Deserialize<OBSStudioWebsocket5Message>(message, DefaultJsonSerializerOptions.Options);
 
         switch (messageObj.Op)
         {
+            case 0:
+                await Identify(messageObj);
+                break;
             case 2:
                 _isIdentified = true;
                 break;
@@ -148,6 +132,9 @@ public class OBSStudioWebsocket5Request : IRequest
     {
         switch(message.D.EventType)
         {
+            case OBSStudioWebsocket5EventTypes.CurrentProgramSceneChanged:
+                OnCurrentProgramSceneChanged.Invoke(this, new OBSStudioWebsocket5Scene(message.D.EventData.SceneName));
+                break;
             default:
                 break;
         }
@@ -223,5 +210,6 @@ public class OBSStudioWebsocket5Request : IRequest
         }
         return false;
     }
+    public event EventHandler<Scene> OnCurrentProgramSceneChanged;
 #endregion
 }

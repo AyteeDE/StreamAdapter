@@ -1,28 +1,29 @@
 using System;
 
-namespace AyteeDE.StreamAdapter.Communication.Websocket.OBSStudioWebsocket5;
+namespace AyteeDE.StreamAdapter.Communication.Websocket;
 
 public static class OBSStudioWebsocket5RequestTypes
 {
     //General Requests
-    public static string GetVersion => "GetVersion";
-    public static string GetStats => "GetStats";
-    public static string BroadcastCustomEvent => "BroadcastCustomEvent";
-    public static string CallVendorRequest => "CallVendorRequest";
-    public static string GetHotkeyList => "GetHotkeyList";
-    public static string TriggerHotkeyByName => "TriggerHotkeyByName";
-    public static string TriggerHotkeyByKeySequence => "TriggerHotkeyByKeySequence";
-    public static string Sleep => "Sleep";
+    public const string GetVersion = "GetVersion";
+    public const string GetStats = "GetStats";
+    public const string BroadcastCustomEvent = "BroadcastCustomEvent";
+    public const string CallVendorRequest = "CallVendorRequest";
+    public const string GetHotkeyList = "GetHotkeyList";
+    public const string TriggerHotkeyByName = "TriggerHotkeyByName";
+    public const string TriggerHotkeyByKeySequence = "TriggerHotkeyByKeySequence";
+    public const string Sleep = "Sleep";
     //Scenes Requests
-    public static string GetSceneList => "GetSceneList";
-    public static string GetGroupList => "GetGroupList";
-    public static string GetCurrentProgramScene => "GetCurrentProgramScene";
-    public static string SetCurrentProgramScene => "SetCurrentProgramScene";
-    public static string GetCurrentPreviewScene => "GetCurrentPreviewScene";
-    public static string SetCurrentPreviewScene => "SetCurrentPreviewScene";
-    public static string CreateScene => "CreateScene";
-    public static string RemoveScene => "RemoveScene";
-    public static string SetSceneName => "SetSceneName";
-    public static string GetSceneSceneTransitionOverride => "GetSceneSceneTransitionOverride";
-    public static string SetSceneSceneTransitionOverride => "SetSceneSceneTransitionOverride";
+    public const string GetSceneList = "GetSceneList";
+    public const string GetGroupList = "GetGroupList";
+    public const string GetCurrentProgramScene = "GetCurrentProgramScene";
+    public const string SetCurrentProgramScene = "SetCurrentProgramScene";
+    public const string GetCurrentPreviewScene = "GetCurrentPreviewScene";
+    public const string SetCurrentPreviewScene = "SetCurrentPreviewScene";
+    public const string CreateScene = "CreateScene";
+    public const string RemoveScene = "RemoveScene";
+    public const string SetSceneName = "SetSceneName";
+    public const string GetSceneSceneTransitionOverride = "GetSceneSceneTransitionOverride";
+    public const string SetSceneSceneTransitionOverride = "SetSceneSceneTransitionOverride";
 }
+
