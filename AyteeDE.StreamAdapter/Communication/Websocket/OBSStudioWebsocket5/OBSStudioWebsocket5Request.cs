@@ -3,6 +3,7 @@ using System.Text;
 using System.Text.Json;
 using AyteeDE.StreamAdapter.Communication;
 using AyteeDE.StreamAdapter.Communication.Websocket;
+using AyteeDE.StreamAdapter.Communication.Websocket.OBSStudioWebsocket5;
 using AyteeDE.StreamAdapter.Configuration;
 using AyteeDE.StreamAdapter.Entities.External;
 using AyteeDE.StreamAdapter.Entities.StreamAdapter;
@@ -53,10 +54,13 @@ public class OBSStudioWebsocket5Request : IRequest
             if(!_isIdentified)
             {
                 var helloMessage = await GetHelloMessage();
-
-                string challenge = helloMessage.D.AuthenticationData.Challenge;
-                string salt = helloMessage.D.AuthenticationData.Salt;
-
+                string challenge = string.Empty;
+                string salt = string.Empty;
+                if(_configuration.AuthenticationEnabled)
+                {
+                    challenge = helloMessage.D.AuthenticationData.Challenge;
+                    salt = helloMessage.D.AuthenticationData.Salt;
+                }
                 await Identify(challenge, salt);
             }
 
@@ -175,7 +179,7 @@ public class OBSStudioWebsocket5Request : IRequest
 #region Interface Implementation
     public async Task<Scene> GetCurrentProgramScene()
     {
-        var response = await PrepareAndSendNonParameterMessage("GetCurrentProgramScene");
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.GetCurrentProgramScene);
         if(response == null)
         {
             return null;
@@ -187,7 +191,7 @@ public class OBSStudioWebsocket5Request : IRequest
 
     public async Task<List<Scene>> GetScenes()
     {
-        var response = await PrepareAndSendNonParameterMessage("GetSceneList");
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.GetSceneList);
         if(response == null)
         {
             return null;
@@ -205,7 +209,7 @@ public class OBSStudioWebsocket5Request : IRequest
     public async Task<bool> SetCurrentProgramScene(Scene scene)
     {
         var message = await PrepareRequestMessage();
-        message.D.RequestType = "SetCurrentProgramScene";
+        message.D.RequestType = OBSStudioWebsocket5RequestTypes.SetCurrentProgramScene;
         message.D.RequestData = new OBSStudioWebsocket5MessageRequestData
         {
             SceneName = scene.UniqueIdentifier
