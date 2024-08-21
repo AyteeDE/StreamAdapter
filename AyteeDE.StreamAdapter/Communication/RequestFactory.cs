@@ -13,6 +13,8 @@ public static class RequestFactory
         {
             case ConnectionType.OBSStudioWebsocket5:
                 return new OBSStudioWebsocket5Request(configuration);
+            case ConnectionType.StreamlabsWebsocket:
+                return new StreamlabsWebsocketRequest(configuration);
             default:
                 return null;
         }

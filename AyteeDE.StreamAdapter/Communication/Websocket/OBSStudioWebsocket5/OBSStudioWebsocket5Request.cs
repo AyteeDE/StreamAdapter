@@ -22,7 +22,7 @@ public class OBSStudioWebsocket5Request : IRequest
     {
         _configuration = configuration;
         _websocketConnection.MessageReceived += OnMessageReceived;
-        _websocketConnection.ConnectAsync(Endpoint);  
+        _websocketConnection.ConnectAsync(Endpoint).Wait();  
     }
 #region Outgoing Message Handling
     private async Task<OBSStudioWebsocket5Message> SendMessageAndWaitForResponse(OBSStudioWebsocket5Message message)
@@ -133,7 +133,7 @@ public class OBSStudioWebsocket5Request : IRequest
         switch(message.D.EventType)
         {
             case OBSStudioWebsocket5EventTypes.CurrentProgramSceneChanged:
-                OnCurrentProgramSceneChanged.Invoke(this, new OBSStudioWebsocket5Scene(message.D.EventData.SceneName));
+                SubscribedEventHandler.InvokeSubscribedEvent(OnCurrentProgramSceneChanged, this, new OBSStudioWebsocket5Scene(message.D.EventData.SceneName));
                 break;
             default:
                 break;
@@ -155,7 +155,9 @@ public class OBSStudioWebsocket5Request : IRequest
                 //Delay polling by 50ms
                 await Task.Delay(25);
             }
-            return _requestsAwaitingResponse[requestMessage.D.RequestId];
+            var result =  _requestsAwaitingResponse[requestMessage.D.RequestId];
+            _requestsAwaitingResponse.Remove(requestMessage.D.RequestId);
+            return result;
         }
         else
         {
