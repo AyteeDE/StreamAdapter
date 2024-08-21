@@ -1,5 +1,3 @@
-using System;
-
 namespace AyteeDE.StreamAdapter.Communication;
 
 public static class SubscribedEventHandler

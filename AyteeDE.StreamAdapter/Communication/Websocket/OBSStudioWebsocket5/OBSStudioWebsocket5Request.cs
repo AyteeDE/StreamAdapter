@@ -21,7 +21,7 @@ public class OBSStudioWebsocket5Request : IRequest
     public OBSStudioWebsocket5Request(EndpointConfiguration configuration)
     {
         _configuration = configuration;
-        _websocketConnection.MessageReceived += OnMessageReceived;
+        _websocketConnection.OnMessageReceived += OnMessageReceived;
         _websocketConnection.ConnectAsync(Endpoint).Wait();  
     }
 #region Outgoing Message Handling

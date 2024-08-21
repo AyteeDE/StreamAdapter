@@ -6,8 +6,8 @@ namespace AyteeDE.StreamAdapter.Communication.Websocket;
 
 public class WebsocketConnection
 {
-    private static ClientWebSocket _ws = new ClientWebSocket();
-    public event EventHandler<WebsocketMessageEventArgs> MessageReceived;
+    private ClientWebSocket _ws = new ClientWebSocket();
+    public event EventHandler<WebsocketMessageEventArgs> OnMessageReceived;
     private bool IsConnected
     {
         get
@@ -59,11 +59,11 @@ public class WebsocketConnection
         var json = JsonSerializer.Serialize(message, message.GetType(), DefaultJsonSerializerOptions.Options);
         await SendAsync(json);
     }
-    public async Task ListenAsync()
+    private async Task ListenAsync()
     {
-        var receiveBuffer = new ArraySegment<byte>(new byte[4096]);
         while(IsConnected)
         {
+            var receiveBuffer = new ArraySegment<byte>(new byte[4096]);
             var result = await _ws.ReceiveAsync(receiveBuffer, CancellationToken.None);
             if(result.MessageType == WebSocketMessageType.Text)
             {
@@ -74,7 +74,7 @@ public class WebsocketConnection
     }
     private void HandleResponseMessage(string message)
     {
-        MessageReceived?.Invoke(this, new WebsocketMessageEventArgs(message));
+        SubscribedEventHandler.InvokeSubscribedEvent(OnMessageReceived, this, new WebsocketMessageEventArgs(message));
     }
     private Uri BuildUri(string endpoint)
     {

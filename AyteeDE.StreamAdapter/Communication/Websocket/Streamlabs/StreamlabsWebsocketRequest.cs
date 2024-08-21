@@ -23,7 +23,7 @@ public class StreamlabsWebsocketRequest : IRequest
     public StreamlabsWebsocketRequest(EndpointConfiguration configuration)
     {
         _configuration = configuration;
-        _websocketConnection.MessageReceived += OnMessageReceived;
+        _websocketConnection.OnMessageReceived += OnMessageReceived;
         _websocketConnection.ConnectAsync(Endpoint).Wait();
         SubscribeEvents().Wait();
     }
