@@ -1,4 +1,4 @@
-﻿namespace AyteeDE.StreamAdapter.Entities.StreamAdapter;
+﻿namespace AyteeDE.StreamAdapter.Core.Entities;
 
 public abstract class Scene : IEquatable<Scene>
 {

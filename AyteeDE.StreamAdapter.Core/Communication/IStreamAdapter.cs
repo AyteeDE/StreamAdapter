@@ -1,7 +1,6 @@
-﻿using AyteeDE.StreamAdapter.Configuration;
-using AyteeDE.StreamAdapter.Entities.StreamAdapter;
+﻿using AyteeDE.StreamAdapter.Core.Entities;
 
-namespace AyteeDE.StreamAdapter.Communication;
+namespace AyteeDE.StreamAdapter.Core.Communication;
 
 public interface IStreamAdapter
 {

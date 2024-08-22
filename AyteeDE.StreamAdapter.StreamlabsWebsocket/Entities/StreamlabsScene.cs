@@ -1,4 +1,4 @@
-using AyteeDE.StreamAdapter.Entities.StreamAdapter;
+using AyteeDE.StreamAdapter.Core.Entities;
 
 namespace AyteeDE.StreamAdapter.StreamlabsWebsocket.Entities;
 

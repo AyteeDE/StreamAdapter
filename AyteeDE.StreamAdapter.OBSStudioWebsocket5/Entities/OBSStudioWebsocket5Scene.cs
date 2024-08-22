@@ -1,4 +1,4 @@
-﻿using AyteeDE.StreamAdapter.Entities.StreamAdapter;
+﻿using AyteeDE.StreamAdapter.Core.Entities;
 using AyteeDE.StreamAdapter.OBSStudioWebsocket5.Communication;
 
 namespace AyteeDE.StreamAdapter.OBSStudioWebsocket5.Entities;

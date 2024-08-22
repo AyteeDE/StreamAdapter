@@ -1,8 +1,8 @@
 using System.Text.Json;
-using AyteeDE.StreamAdapter.Communication;
-using AyteeDE.StreamAdapter.Communication.Websocket;
-using AyteeDE.StreamAdapter.Configuration;
-using AyteeDE.StreamAdapter.Entities.StreamAdapter;
+using AyteeDE.StreamAdapter.Core.Communication;
+using AyteeDE.StreamAdapter.Core.Communication.Websocket;
+using AyteeDE.StreamAdapter.Core.Configuration;
+using AyteeDE.StreamAdapter.Core.Entities;
 using AyteeDE.StreamAdapter.StreamlabsWebsocket.Communication.Websocket;
 using AyteeDE.StreamAdapter.StreamlabsWebsocket.Entities;
 

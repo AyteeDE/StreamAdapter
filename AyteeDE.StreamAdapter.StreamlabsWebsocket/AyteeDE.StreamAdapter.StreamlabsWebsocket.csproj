@@ -1,7 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
+  </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AyteeDE.StreamAdapter\AyteeDE.StreamAdapter.csproj" />
+    <ProjectReference Include="..\AyteeDE.StreamAdapter.Core\AyteeDE.StreamAdapter.Core.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

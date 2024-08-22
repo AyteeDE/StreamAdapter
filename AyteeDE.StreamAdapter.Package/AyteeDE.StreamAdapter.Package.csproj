@@ -1,0 +1,24 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\AyteeDE.StreamAdapter.Core\AyteeDE.StreamAdapter.Core.csproj" />
+    <ProjectReference Include="..\AyteeDE.StreamAdapter.OBSStudioWebsocket5\AyteeDE.StreamAdapter.OBSStudioWebsocket5.csproj" />
+    <ProjectReference Include="..\AyteeDE.StreamAdapter.StreamlabsWebsocket\AyteeDE.StreamAdapter.StreamlabsWebsocket.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <PackageId>AyteeDE.StreamAdapter</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Simon Pawlowski</Authors>
+    <Company>AyteeDE</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AyteeDE/StreamAdapter</RepositoryUrl>
+  </PropertyGroup>
+
+</Project>

@@ -1,4 +1,4 @@
-namespace AyteeDE.StreamAdapter.Communication;
+namespace AyteeDE.StreamAdapter.Core.Communication;
 
 public static class SubscribedEventHandler
 {

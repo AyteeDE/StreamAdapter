@@ -2,7 +2,7 @@
 using System.Text;
 using System.Text.Json;
 
-namespace AyteeDE.StreamAdapter.Communication.Websocket;
+namespace AyteeDE.StreamAdapter.Core.Communication.Websocket;
 
 public class WebsocketConnection
 {

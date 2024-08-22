@@ -1,7 +1,6 @@
-﻿using AyteeDE.StreamAdapter.Communication.Websocket;
-using AyteeDE.StreamAdapter.Configuration;
+﻿using AyteeDE.StreamAdapter.Core.Configuration;
 
-namespace AyteeDE.StreamAdapter.Communication;
+namespace AyteeDE.StreamAdapter.Core.Communication;
 
 public static class AdapterFactory
 {
