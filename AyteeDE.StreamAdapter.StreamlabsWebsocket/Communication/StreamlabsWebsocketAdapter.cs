@@ -1,15 +1,14 @@
-using System;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Diagnostics;
 using System.Text.Json;
+using AyteeDE.StreamAdapter.Communication;
+using AyteeDE.StreamAdapter.Communication.Websocket;
 using AyteeDE.StreamAdapter.Configuration;
-using AyteeDE.StreamAdapter.Entities.External;
 using AyteeDE.StreamAdapter.Entities.StreamAdapter;
+using AyteeDE.StreamAdapter.StreamlabsWebsocket.Communication.Websocket;
+using AyteeDE.StreamAdapter.StreamlabsWebsocket.Entities;
 
-namespace AyteeDE.StreamAdapter.Communication.Websocket;
+namespace AyteeDE.StreamAdapter.StreamlabsWebsocket.Communication;
 
-public class StreamlabsWebsocketRequest : IRequest
+public class StreamlabsWebsocketAdapter : IStreamAdapter
 {
     private readonly EndpointConfiguration _configuration;
     private static WebsocketConnection? _websocketConnection = new WebsocketConnection();
@@ -20,7 +19,7 @@ public class StreamlabsWebsocketRequest : IRequest
     {
         get => $"ws://{_configuration.Host}:{_configuration.Port}/api/websocket";
     }
-    public StreamlabsWebsocketRequest(EndpointConfiguration configuration)
+    public StreamlabsWebsocketAdapter(EndpointConfiguration configuration)
     {
         _configuration = configuration;
         _websocketConnection.OnMessageReceived += OnMessageReceived;

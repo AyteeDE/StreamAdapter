@@ -1,7 +1,7 @@
-﻿using AyteeDE.StreamAdapter.Communication.Websocket;
-using AyteeDE.StreamAdapter.Entities.StreamAdapter;
+﻿using AyteeDE.StreamAdapter.Entities.StreamAdapter;
+using AyteeDE.StreamAdapter.OBSStudioWebsocket5.Communication;
 
-namespace AyteeDE.StreamAdapter.Entities.External;
+namespace AyteeDE.StreamAdapter.OBSStudioWebsocket5.Entities;
 
 public class OBSStudioWebsocket5Scene : Scene
 {

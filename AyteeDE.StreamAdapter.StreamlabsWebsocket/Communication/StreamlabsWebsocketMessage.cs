@@ -1,6 +1,7 @@
 using System.Text.Json.Serialization;
+using AyteeDE.StreamAdapter.Communication.Websocket;
 
-namespace AyteeDE.StreamAdapter.Communication.Websocket;
+namespace AyteeDE.StreamAdapter.StreamlabsWebsocket.Communication.Websocket;
 
 public class StreamlabsWebsocketMessage : WebsocketMessage
 {

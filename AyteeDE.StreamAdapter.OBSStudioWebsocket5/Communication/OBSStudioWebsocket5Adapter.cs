@@ -1,13 +1,15 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
+using AyteeDE.StreamAdapter.Communication;
+using AyteeDE.StreamAdapter.Communication.Websocket;
 using AyteeDE.StreamAdapter.Configuration;
-using AyteeDE.StreamAdapter.Entities.External;
 using AyteeDE.StreamAdapter.Entities.StreamAdapter;
+using AyteeDE.StreamAdapter.OBSStudioWebsocket5.Entities;
 
-namespace AyteeDE.StreamAdapter.Communication.Websocket;
+namespace AyteeDE.StreamAdapter.OBSStudioWebsocket5.Communication;
 
-public class OBSStudioWebsocket5Request : IRequest
+public class OBSStudioWebsocket5Adapter : IStreamAdapter
 {
     private readonly EndpointConfiguration _configuration;
     private static WebsocketConnection? _websocketConnection = new WebsocketConnection();
@@ -18,7 +20,7 @@ public class OBSStudioWebsocket5Request : IRequest
     {
         get => $"ws://{_configuration.Host}:{_configuration.Port}";
     }
-    public OBSStudioWebsocket5Request(EndpointConfiguration configuration)
+    public OBSStudioWebsocket5Adapter(EndpointConfiguration configuration) 
     {
         _configuration = configuration;
         _websocketConnection.OnMessageReceived += OnMessageReceived;

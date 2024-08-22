@@ -1,7 +1,9 @@
 ﻿using System.Text.Json;
 using System.Text.Json.Serialization;
+using AyteeDE.StreamAdapter.Communication;
+using AyteeDE.StreamAdapter.Communication.Websocket;
 
-namespace AyteeDE.StreamAdapter.Communication.Websocket;
+namespace AyteeDE.StreamAdapter.OBSStudioWebsocket5.Communication;
 
 public class OBSStudioWebsocket5Message : WebsocketMessage
 {

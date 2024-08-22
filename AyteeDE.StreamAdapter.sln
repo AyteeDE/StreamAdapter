@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyteeDE.StreamAdapter", "AyteeDE.StreamAdapter\AyteeDE.StreamAdapter.csproj", "{A007F046-AD02-4701-8CC1-6D624DE64213}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyteeDE.StreamAdapter.OBSStudioWebsocket5", "AyteeDE.StreamAdapter.OBSStudioWebsocket5\AyteeDE.StreamAdapter.OBSStudioWebsocket5.csproj", "{CBABCB55-8A2E-47B0-8548-B33AB6681415}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyteeDE.StreamAdapter.StreamlabsWebsocket", "AyteeDE.StreamAdapter.StreamlabsWebsocket\AyteeDE.StreamAdapter.StreamlabsWebsocket.csproj", "{0E11FCA0-6334-42EB-8FFB-46434297E91B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{A007F046-AD02-4701-8CC1-6D624DE64213}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A007F046-AD02-4701-8CC1-6D624DE64213}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A007F046-AD02-4701-8CC1-6D624DE64213}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBABCB55-8A2E-47B0-8548-B33AB6681415}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBABCB55-8A2E-47B0-8548-B33AB6681415}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBABCB55-8A2E-47B0-8548-B33AB6681415}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBABCB55-8A2E-47B0-8548-B33AB6681415}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E11FCA0-6334-42EB-8FFB-46434297E91B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E11FCA0-6334-42EB-8FFB-46434297E91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E11FCA0-6334-42EB-8FFB-46434297E91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E11FCA0-6334-42EB-8FFB-46434297E91B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

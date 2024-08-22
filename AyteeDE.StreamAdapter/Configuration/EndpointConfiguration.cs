@@ -1,8 +1,10 @@
-﻿namespace AyteeDE.StreamAdapter.Configuration;
+﻿using AyteeDE.StreamAdapter.Communication;
 
-public class EndpointConfiguration
+namespace AyteeDE.StreamAdapter.Configuration;
+
+public class EndpointConfiguration 
 {
-    public ConnectionType ConnectionType { get; set; }
+    public Type ConnectionType { get; set; }
     public string? Host { get; set; }
     public int? Port { get; set; }
     public string? Token { get; set; }

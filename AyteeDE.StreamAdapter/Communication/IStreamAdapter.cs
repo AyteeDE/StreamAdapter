@@ -1,8 +1,9 @@
-﻿using AyteeDE.StreamAdapter.Entities.StreamAdapter;
+﻿using AyteeDE.StreamAdapter.Configuration;
+using AyteeDE.StreamAdapter.Entities.StreamAdapter;
 
 namespace AyteeDE.StreamAdapter.Communication;
 
-public interface IRequest
+public interface IStreamAdapter
 {
     //Scenes Requests
     public Task<List<Scene>> GetScenes();

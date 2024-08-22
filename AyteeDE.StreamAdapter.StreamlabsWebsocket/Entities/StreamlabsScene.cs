@@ -1,7 +1,6 @@
-using System;
 using AyteeDE.StreamAdapter.Entities.StreamAdapter;
 
-namespace AyteeDE.StreamAdapter.Entities.External;
+namespace AyteeDE.StreamAdapter.StreamlabsWebsocket.Entities;
 
 public class StreamlabsScene : Scene
 {

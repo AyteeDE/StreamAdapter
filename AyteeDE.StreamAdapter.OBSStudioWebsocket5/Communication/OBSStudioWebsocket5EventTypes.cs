@@ -1,4 +1,4 @@
-namespace AyteeDE.StreamAdapter.Communication.Websocket;
+namespace AyteeDE.StreamAdapter.OBSStudioWebsocket5.Communication;
 
 public static class OBSStudioWebsocket5EventTypes
 {
