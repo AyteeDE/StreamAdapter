@@ -9,8 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyteeDE.StreamAdapter.OBSSt
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyteeDE.StreamAdapter.StreamlabsWebsocket", "AyteeDE.StreamAdapter.StreamlabsWebsocket\AyteeDE.StreamAdapter.StreamlabsWebsocket.csproj", "{0E11FCA0-6334-42EB-8FFB-46434297E91B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AyteeDE.StreamAdapter.Package", "AyteeDE.StreamAdapter.Package\AyteeDE.StreamAdapter.Package.csproj", "{0994DA59-3A07-45A1-B871-389630FE7975}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,10 +27,6 @@ Global
 		{0E11FCA0-6334-42EB-8FFB-46434297E91B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E11FCA0-6334-42EB-8FFB-46434297E91B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E11FCA0-6334-42EB-8FFB-46434297E91B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0994DA59-3A07-45A1-B871-389630FE7975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0994DA59-3A07-45A1-B871-389630FE7975}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0994DA59-3A07-45A1-B871-389630FE7975}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0994DA59-3A07-45A1-B871-389630FE7975}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
