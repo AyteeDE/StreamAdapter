@@ -13,4 +13,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PackageId>AyteeDE.StreamAdapter.StreamlabsWebsocket</PackageId>
+    <Version>0.0.1</Version>
+    <Authors>Simon Pawlowski</Authors>
+    <Company>AyteeDE</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/AyteeDE/StreamAdapter</RepositoryUrl>
+  </PropertyGroup>
 </Project>
