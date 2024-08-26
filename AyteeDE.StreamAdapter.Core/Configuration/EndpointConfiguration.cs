@@ -1,18 +1,26 @@
-﻿using AyteeDE.StreamAdapter.Core.Communication;
+﻿using System.Reflection;
+using System.Text.Json.Serialization;
+using AyteeDE.StreamAdapter.Core.Communication;
 
 namespace AyteeDE.StreamAdapter.Core.Configuration;
 
 public class EndpointConfiguration 
 {
-    private Type _connectionType;
+    [JsonIgnore]
     public Type ConnectionType
     { 
-        get => _connectionType;
+        get
+        {
+            var assembly = Assembly.Load(ConnectionTypeAssemblyName);
+            var type = assembly.GetType(ConnectionTypeName);
+            return type;
+        }
         set
         {
             if(value.IsAssignableTo(typeof(IStreamAdapter)))
             {
-                _connectionType = value;
+                ConnectionTypeName = value.FullName;
+                ConnectionTypeAssemblyName = value.Assembly.GetName().Name;
             }
             else
             {
@@ -20,6 +28,10 @@ public class EndpointConfiguration
             }
         }
     }
+    [JsonInclude]
+    public string ConnectionTypeName { get; private set; }
+    [JsonInclude]
+    public string ConnectionTypeAssemblyName { get; private set; }
     public string? Host { get; set; }
     public int? Port { get; set; }
     public string? Token { get; set; }
