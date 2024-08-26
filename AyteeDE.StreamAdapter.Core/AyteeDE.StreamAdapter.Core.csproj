@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyVersion>0.0.1</AssemblyVersion>
+    <AssemblyVersion>0.0.2</AssemblyVersion>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -11,7 +11,7 @@
   
   <PropertyGroup>
     <PackageId>AyteeDE.StreamAdapter.Core</PackageId>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>Simon Pawlowski</Authors>
     <Company>AyteeDE</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

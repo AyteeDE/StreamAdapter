@@ -14,7 +14,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>AyteeDE.StreamAdapter.OBSStudioWebsocket5</PackageId>
-    <Version>0.0.1</Version>
+    <Version>0.0.2</Version>
     <Authors>Simon Pawlowski</Authors>
     <Company>AyteeDE</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
