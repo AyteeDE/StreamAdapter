@@ -23,8 +23,13 @@ public class StreamlabsWebsocketAdapter : IStreamAdapter
     {
         _configuration = configuration;
         _websocketConnection.OnMessageReceived += OnMessageReceived;
-        _websocketConnection.ConnectAsync(Endpoint).Wait();
-        SubscribeEvents().Wait();
+    }
+    public async Task<bool> ConnectAsync()
+    {
+        var result = await _websocketConnection.ConnectAsync(Endpoint);
+        await SubscribeEvents();
+
+        return result;
     }
     private async Task SubscribeEvents()
     {

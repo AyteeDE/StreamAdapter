@@ -24,7 +24,10 @@ public class OBSStudioWebsocket5Adapter : IStreamAdapter
     {
         _configuration = configuration;
         _websocketConnection.OnMessageReceived += OnMessageReceived;
-        _websocketConnection.ConnectAsync(Endpoint).Wait();  
+    }
+    public async Task<bool> ConnectAsync()
+    {
+        return await _websocketConnection.ConnectAsync(Endpoint);
     }
 #region Outgoing Message Handling
     private async Task<OBSStudioWebsocket5Message> SendMessageAndWaitForResponse(OBSStudioWebsocket5Message message)
