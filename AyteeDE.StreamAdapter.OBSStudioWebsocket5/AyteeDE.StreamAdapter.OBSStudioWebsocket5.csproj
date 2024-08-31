@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyVersion>0.0.3</AssemblyVersion>
+    <AssemblyVersion>0.0.4</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,7 +14,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>AyteeDE.StreamAdapter.OBSStudioWebsocket5</PackageId>
-    <Version>0.0.3</Version>
+    <Version>0.0.4</Version>
     <Authors>Simon Pawlowski</Authors>
     <Company>AyteeDE</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
