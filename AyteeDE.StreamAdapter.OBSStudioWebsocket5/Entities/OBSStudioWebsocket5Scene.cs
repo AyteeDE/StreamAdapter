@@ -14,5 +14,6 @@ public class OBSStudioWebsocket5Scene : Scene
     public OBSStudioWebsocket5Scene(OBSStudioWebsocket5MessageScene scene)
     {
         Name = scene.SceneName;
+        UniqueIdentifier = scene.SceneName;
     }
 }
