@@ -5,11 +5,11 @@ namespace AyteeDE.StreamAdapter.OBSStudioWebsocket5.Entities;
 
 public class OBSStudioWebsocket5Scene : Scene
 {
-    public override string Name { get ; set; } = String.Empty;
-    public override string UniqueIdentifier => Name;
+    public OBSStudioWebsocket5Scene(){}
     public OBSStudioWebsocket5Scene(string name)
     {
         Name = name;
+        UniqueIdentifier = name;
     }
     public OBSStudioWebsocket5Scene(OBSStudioWebsocket5MessageScene scene)
     {

@@ -1,10 +1,13 @@
-﻿namespace AyteeDE.StreamAdapter.Core.Entities;
+﻿using System.Text.Json.Serialization;
 
-public abstract class Scene : IEquatable<Scene>
+namespace AyteeDE.StreamAdapter.Core.Entities;
+
+public class Scene : IEquatable<Scene>
 {
-    public abstract string Name { get; set; }
-    public abstract string UniqueIdentifier { get; }
-
+    [JsonInclude]
+    public string Name { get; protected set; }
+    [JsonInclude]
+    public string UniqueIdentifier { get; protected set; }
     public bool Equals(Scene? other)
     {
         if(other == null)
