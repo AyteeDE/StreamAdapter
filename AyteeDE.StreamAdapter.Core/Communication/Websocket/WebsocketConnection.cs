@@ -22,6 +22,7 @@ public class WebsocketConnection
             Uri uri = BuildUri(endpoint);
             try
             {
+                _ws = new ClientWebSocket();
                 await _ws.ConnectAsync(uri, CancellationToken.None);
                 ListenAsync();
             }
