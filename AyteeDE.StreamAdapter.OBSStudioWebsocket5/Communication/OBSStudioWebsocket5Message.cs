@@ -73,6 +73,8 @@ public class OBSStudioWebsocket5MessageRequestData
 {
     [JsonPropertyName("sceneName")]
     public string SceneName {get;set;}
+    [JsonPropertyName("captionText")]
+    public string CaptionText {get;set;}
 }
 public class OBSStudioWebsocket5MessageRequestStatus
 {
@@ -89,6 +91,24 @@ public class OBSStudioWebsocket5MessageResponseData
     public string CurrentPreviewSceneName {get;set;}
     [JsonPropertyName("scenes")]
     public List<OBSStudioWebsocket5MessageScene> Scenes {get;set;}
+    [JsonPropertyName("outputActive")]
+    public bool OutputActive {get;set;}
+    [JsonPropertyName("outputPaused")]
+    public bool OutputPaused {get;set;}
+    [JsonPropertyName("outputReconnecting")]
+    public bool OutputReconnecting {get;set;}
+    [JsonPropertyName("outputTimecode")]
+    public string OutputTimecode {get;set;}
+    [JsonPropertyName("outputDuration")]
+    public double OutputDuration {get;set;}
+    [JsonPropertyName("outputCongestion")]
+    public double OutputCongestion {get;set;}
+    [JsonPropertyName("outputBytes")]
+    public double OutputBytes {get;set;}
+    [JsonPropertyName("outputSkippedFrames")]
+    public int OutputSkippedFrames {get;set;}
+    [JsonPropertyName("outputTotalFrames")]
+    public int OutputTotalFrames {get;set;}
 }
 public class OBSStudioWebsocket5MessageScene
 {

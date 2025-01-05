@@ -9,4 +9,11 @@ public static class SubscribedEventHandler
             eventHandler.Invoke(sender, args);
         }
     }
+    public static void InvokeSubscribedEvent(EventHandler eventHandler, object sender)
+    {
+        if(eventHandler != null)
+        {
+            eventHandler.Invoke(sender, new EventArgs());
+        }
+    }
 }

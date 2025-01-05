@@ -23,5 +23,21 @@ public static class OBSStudioWebsocket5RequestTypes
     public const string SetSceneName = "SetSceneName";
     public const string GetSceneSceneTransitionOverride = "GetSceneSceneTransitionOverride";
     public const string SetSceneSceneTransitionOverride = "SetSceneSceneTransitionOverride";
+    //Stream Requests
+    public const string GetStreamStatus = "GetStreamStatus";
+    public const string ToggleStream = "ToggleStream";
+    public const string StartStream = "StartStream";
+    public const string StopStream = "StopStream";
+    public const string SendStreamCaption = "SendStreamCaption";
+    //Record Requests
+    public const string GetRecordStatus = "GetRecordStatus";
+    public const string ToggleRecord = "ToggleRecord";
+    public const string StartRecord = "StartRecord";
+    public const string StopRecord = "StopRecord";
+    public const string ToggleRecordPause = "ToggleRecordPause";
+    public const string PauseRecord = "PauseRecord";
+    public const string ResumeRecord = "ResumeRecord";
+    public const string SplitRecordFile = "SplitRecordFile";
+    public const string CreateRecordChapter = "CreateRecordChapter";
 }
 

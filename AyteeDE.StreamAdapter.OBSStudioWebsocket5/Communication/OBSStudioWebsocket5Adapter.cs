@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
 using AyteeDE.StreamAdapter.Core.Communication;
@@ -12,7 +13,7 @@ namespace AyteeDE.StreamAdapter.OBSStudioWebsocket5.Communication;
 public class OBSStudioWebsocket5Adapter : IStreamAdapter
 {
     private readonly EndpointConfiguration _configuration;
-    private static WebsocketConnection? _websocketConnection = new WebsocketConnection();
+    private WebsocketConnection? _websocketConnection;
     private static bool _isIdentified;
     private List<OBSStudioWebsocket5Message> _receivedMessages = new List<OBSStudioWebsocket5Message>();
     private Dictionary<string, OBSStudioWebsocket5Message> _requestsAwaitingResponse = new Dictionary<string, OBSStudioWebsocket5Message>();
@@ -23,6 +24,7 @@ public class OBSStudioWebsocket5Adapter : IStreamAdapter
     public OBSStudioWebsocket5Adapter(EndpointConfiguration configuration) 
     {
         _configuration = configuration;
+        _websocketConnection = new WebsocketConnection();
         _websocketConnection.OnMessageReceived += OnMessageReceived;
     }
     public async Task<bool> ConnectAsync()
@@ -176,7 +178,7 @@ public class OBSStudioWebsocket5Adapter : IStreamAdapter
         var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.GetCurrentProgramScene);
         if(response == null)
         {
-            return null;
+            throw new Exception("No response received.");
         }
 
         OBSStudioWebsocket5Scene scene = new OBSStudioWebsocket5Scene(response.D.ResponseData.CurrentProgramSceneName);
@@ -188,7 +190,7 @@ public class OBSStudioWebsocket5Adapter : IStreamAdapter
         var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.GetSceneList);
         if(response == null)
         {
-            return null;
+            throw new Exception("No response received.");
         }
 
         List<Scene> scenes = new List<Scene>();
@@ -200,7 +202,7 @@ public class OBSStudioWebsocket5Adapter : IStreamAdapter
         return scenes;
     }
 
-    public async Task<bool> SetCurrentProgramScene(Scene scene)
+    public async Task SetCurrentProgramScene(Scene scene)
     {
         var message = await PrepareRequestMessage();
         message.D.RequestType = OBSStudioWebsocket5RequestTypes.SetCurrentProgramScene;
@@ -210,12 +212,173 @@ public class OBSStudioWebsocket5Adapter : IStreamAdapter
         };
 
         var response = await SendMessageAndWaitForResponse(message);
-
-        if(response.D.RequestStatus.Result == true)
+        if(response == null)
         {
-            return true;
+            throw new Exception("No response received.");
         }
-        return false;
+    }
+    public async Task<bool> ToggleStream()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.ToggleStream);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+
+        return response.D.ResponseData.OutputActive;
+    }
+    public async Task StartStream()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.StartStream);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+    }
+    public async Task StopStream()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.StopStream);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+    }
+    public async Task<bool> ToggleRecord()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.ToggleRecord);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+
+        return response.D.ResponseData.OutputActive;
+    }
+    public async Task StartRecord()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.StartRecord);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+    }
+    public async Task StopRecord()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.StopRecord);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+    }
+    public async Task PauseRecord()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.PauseRecord);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+    }
+    public async Task ResumeRecord()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.ResumeRecord);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+    }
+    public async Task<bool> ToggleRecordPause()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.ToggleRecordPause);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+
+        var status = await GetRecordStatus();
+        return status.IsPaused;
+    }
+    public async Task SplitRecordFile()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.SplitRecordFile);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+    }
+    public async Task<OutputStatusInformation> GetStreamStatus()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.GetStreamStatus);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+
+        var status = new OutputStatusInformation()
+        {
+            Status = response.D.ResponseData.OutputActive ? OutputStatus.Streaming : OutputStatus.Stopped,
+            IsReconnecting = response.D.ResponseData.OutputReconnecting,
+            Timecode = response.D.ResponseData.OutputTimecode,
+            Duration = response.D.ResponseData.OutputDuration,
+            Congestion = response.D.ResponseData.OutputCongestion,
+            Bytes = response.D.ResponseData.OutputBytes,
+            SkippedFrames = response.D.ResponseData.OutputSkippedFrames,
+            TotalFrames = response.D.ResponseData.OutputTotalFrames
+        };
+
+        return status;
+    }
+    public async Task<OutputStatusInformation> GetRecordStatus()
+    {
+        var response = await PrepareAndSendNonParameterMessage(OBSStudioWebsocket5RequestTypes.GetRecordStatus);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+
+        var status = new OutputStatusInformation()
+        {
+            Status = response.D.ResponseData.OutputActive ? OutputStatus.Recording : OutputStatus.Stopped,
+            IsPaused = response.D.ResponseData.OutputPaused,
+            Timecode = response.D.ResponseData.OutputTimecode,
+            Duration = response.D.ResponseData.OutputDuration,
+            Bytes = response.D.ResponseData.OutputBytes
+        };
+
+        if(status.IsPaused)
+        {
+            status.Status = OutputStatus.Paused;
+        }
+
+        return status;
+    }
+    public async Task SendStreamCaption(string caption)
+    {
+        var message = await PrepareRequestMessage();
+        message.D.RequestType = OBSStudioWebsocket5RequestTypes.SendStreamCaption;
+        message.D.RequestData = new OBSStudioWebsocket5MessageRequestData
+        {
+            CaptionText = caption
+        };
+
+        var response = await SendMessageAndWaitForResponse(message);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+    }
+    public async Task CreateRecordChapter(string chapterName)
+    {
+        var message = await PrepareRequestMessage();
+        message.D.RequestType = OBSStudioWebsocket5RequestTypes.CreateRecordChapter;
+        message.D.RequestData = new OBSStudioWebsocket5MessageRequestData
+        {
+            CaptionText = chapterName
+        };
+
+        var response = await SendMessageAndWaitForResponse(message);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
     }
     public event EventHandler<Scene> OnCurrentProgramSceneChanged;
 #endregion
