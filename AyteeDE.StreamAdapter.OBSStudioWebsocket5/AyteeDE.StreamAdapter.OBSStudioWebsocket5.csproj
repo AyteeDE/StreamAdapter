@@ -4,9 +4,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AyteeDE.StreamAdapter.Core" Version="0.0.5" />
   </ItemGroup>
 
