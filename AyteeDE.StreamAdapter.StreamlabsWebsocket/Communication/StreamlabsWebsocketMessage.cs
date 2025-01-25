@@ -35,4 +35,14 @@ public class StreamlabsWebsocketMessageResult
     public string Name {get;set;}
     [JsonPropertyName("data")]
     public object Data {get;set;}
+    [JsonPropertyName("streamingStatus")]
+    public string StreamingStatus {get;set;}
+    [JsonPropertyName("recordingStatus")]
+    public string RecordingStatus {get;set;}
+    [JsonPropertyName("streamingStatusTime")]
+    public DateTime StreamingStatusTime {get;set;}
+    [JsonPropertyName("recordingStatusTime")]
+    public DateTime RecordingStatusTime {get;set;}
+    [JsonPropertyName("dualOutputMode")]
+    public bool DualOutputMode {get;set;}
 }

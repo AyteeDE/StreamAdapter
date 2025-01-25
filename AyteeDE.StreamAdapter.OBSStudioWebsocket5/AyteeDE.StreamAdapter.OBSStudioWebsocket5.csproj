@@ -1,10 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <AssemblyVersion>0.0.4</AssemblyVersion>
+    <AssemblyVersion>0.0.5</AssemblyVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AyteeDE.StreamAdapter.Core\AyteeDE.StreamAdapter.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AyteeDE.StreamAdapter.Core" Version="0.0.5" />
   </ItemGroup>
 
   <PropertyGroup>
@@ -14,7 +17,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <PackageId>AyteeDE.StreamAdapter.OBSStudioWebsocket5</PackageId>
-    <Version>0.0.4</Version>
+    <Version>0.0.5</Version>
     <Authors>Simon Pawlowski</Authors>
     <Company>AyteeDE</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>

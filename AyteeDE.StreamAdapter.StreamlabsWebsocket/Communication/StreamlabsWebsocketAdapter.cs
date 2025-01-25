@@ -173,11 +173,11 @@ public class StreamlabsWebsocketAdapter : IStreamAdapter
     public async Task<Scene> GetCurrentProgramScene()
     {
         var response = await PrepareAndSendNonParameterMessage("activeScene", "ScenesService");
-
         if(response == null)
         {
-            return null;
+            throw new Exception("No response received.");
         }
+
         var result = JsonSerializer.Deserialize<StreamlabsWebsocketMessageResult>(response.Result.ToString(), DefaultJsonSerializerOptions.Options);
 
         return new StreamlabsScene(result.Name, result.Id);
@@ -185,10 +185,9 @@ public class StreamlabsWebsocketAdapter : IStreamAdapter
     public async Task<List<Scene>> GetScenes()
     {
         var response = await PrepareAndSendNonParameterMessage("getScenes", "ScenesService");
-
         if(response == null)
         {
-            return null;
+            throw new Exception("No response received.");
         }
 
         List<Scene> scenes= new List<Scene>();
@@ -200,7 +199,7 @@ public class StreamlabsWebsocketAdapter : IStreamAdapter
 
         return scenes;
     }
-    public async Task<bool> SetCurrentProgramScene(Scene scene)
+    public async Task SetCurrentProgramScene(Scene scene)
     {
         var message = await PrepareRequestMessage();
         message.Method = "makeSceneActive";
@@ -211,8 +210,202 @@ public class StreamlabsWebsocketAdapter : IStreamAdapter
         };
 
         var response = await SendMessageAndWaitForResponse(message);
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+    }
+    private enum OutputStatusFilter
+    {
+        Streaming,
+        Recording
+    }
+    private async Task<OutputStatusInformation> GetOutputStatus(OutputStatusFilter filter)
+    {
+        var response = await PrepareAndSendNonParameterMessage("getModel", "StreamingService");
 
-        return true;
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+
+        var result = JsonSerializer.Deserialize<StreamlabsWebsocketMessageResult>(response.Result.ToString(), DefaultJsonSerializerOptions.Options);
+        var outputStatusInformation = new OutputStatusInformation();
+
+        switch(filter)
+        {
+            case OutputStatusFilter.Streaming:
+                outputStatusInformation.Status = result.StreamingStatus == "live" || result.StreamingStatus == "starting" || result.StreamingStatus == "ending" || result.StreamingStatus == "reconnecting" ? OutputStatus.Streaming : OutputStatus.Stopped;
+                outputStatusInformation.IsReconnecting = result.StreamingStatus == "reconnecting" ? true : false;
+                outputStatusInformation.Duration = outputStatusInformation.Status == OutputStatus.Streaming ? DateTime.Now.Subtract(result.StreamingStatusTime.ToLocalTime()).TotalSeconds : 0;
+                break;
+            case OutputStatusFilter.Recording:
+                outputStatusInformation.Status = result.RecordingStatus == "recording" || result.RecordingStatus == "starting" || result.RecordingStatus == "stopping" ? OutputStatus.Recording : OutputStatus.Stopped;
+                outputStatusInformation.Duration = outputStatusInformation.Status == OutputStatus.Recording ? DateTime.Now.Subtract(result.RecordingStatusTime.ToLocalTime()).TotalSeconds : 0;
+                break;
+            default:
+                break;
+        }
+
+        return outputStatusInformation;
+    }
+    public async Task<OutputStatusInformation> GetStreamStatus()
+    {
+        return await GetOutputStatus(OutputStatusFilter.Streaming);
+    }
+    public async Task<bool> ToggleStream()
+    {
+        var isStreaming = (await GetStreamStatus()).Status == OutputStatus.Streaming ? true : false;
+        var response = await PrepareAndSendNonParameterMessage("toggleStreaming", "StreamingService");
+
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+
+        if(isStreaming)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public async Task StartStream()
+    {
+        var isStreaming = (await GetStreamStatus()).Status == OutputStatus.Streaming ? true : false;
+        if(!isStreaming)
+        {
+            var response = await PrepareAndSendNonParameterMessage("toggleStreaming", "StreamingService");
+
+            if(response == null)
+            {
+                throw new Exception("No response received.");
+            }
+        }
+    }
+    public async Task StopStream()
+    {
+        var isStreaming = (await GetStreamStatus()).Status == OutputStatus.Streaming ? true : false;
+        if(isStreaming)
+        {
+            var response = await PrepareAndSendNonParameterMessage("toggleStreaming", "StreamingService");
+
+            if(response == null)
+            {
+                throw new Exception("No response received.");
+            }
+        }
+    }
+    /// <summary>
+    /// Not supported by Streamlabs Desktop API.
+    /// </summary>
+    /// <param name="caption"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task SendStreamCaption(string caption)
+    {
+        throw new NotImplementedException();
+    }
+    public async Task<OutputStatusInformation> GetRecordStatus()
+    {
+        return await GetOutputStatus(OutputStatusFilter.Recording);
+    }
+    public async Task<bool> ToggleRecord()
+    {
+        var isRecording = (await GetRecordStatus()).Status == OutputStatus.Recording ? true : false;
+        var response = await PrepareAndSendNonParameterMessage("toggleRecording", "StreamingService");
+
+        if(response == null)
+        {
+            throw new Exception("No response received.");
+        }
+
+        if(isRecording)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+    public async Task StartRecord()
+    {
+        var isRecording = (await GetRecordStatus()).Status == OutputStatus.Recording ? true : false;
+        if(!isRecording)
+        {
+            var response = await PrepareAndSendNonParameterMessage("toggleRecording", "StreamingService");
+
+            if(response == null)
+            {
+                throw new Exception("No response received.");
+            }
+        }
+    }
+    public async Task StopRecord()
+    {
+        var isRecording = (await GetStreamStatus()).Status == OutputStatus.Streaming ? true : false;
+        if(isRecording)
+        {
+            var response = await PrepareAndSendNonParameterMessage("toggleRecording", "StreamingService");
+
+            if(response == null)
+            {
+                throw new Exception("No response received.");
+            }
+        }
+    }
+    /// <summary>
+    /// Not supported by Streamlabs Desktop API.
+    /// </summary>
+    /// <param name="caption"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task<bool> ToggleRecordPause()
+    {
+        throw new NotImplementedException();
+    }
+    /// <summary>
+    /// Not supported by Streamlabs Desktop API.
+    /// </summary>
+    /// <param name="caption"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task PauseRecord()
+    {
+        throw new NotImplementedException();
+    }
+    /// <summary>
+    /// Not supported by Streamlabs Desktop API.
+    /// </summary>
+    /// <param name="caption"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task ResumeRecord()
+    {
+        throw new NotImplementedException();
+    }
+    /// <summary>
+    /// Not supported by Streamlabs Desktop API.
+    /// </summary>
+    /// <param name="caption"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task SplitRecordFile()
+    {
+        throw new NotImplementedException();
+    }
+    /// <summary>
+    /// Not supported by Streamlabs Desktop API.
+    /// </summary>
+    /// <param name="caption"></param>
+    /// <returns></returns>
+    /// <exception cref="NotImplementedException"></exception>
+    public async Task CreateRecordChapter(string chapterName)
+    {
+        throw new NotImplementedException();
     }
     public event EventHandler<Scene> OnCurrentProgramSceneChanged;
 #endregion
