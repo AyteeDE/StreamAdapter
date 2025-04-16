@@ -11,8 +11,8 @@ namespace AyteeDE.StreamAdapter.StreamlabsWebsocket.Communication;
 public class StreamlabsWebsocketAdapter : IStreamAdapter
 {
     private readonly EndpointConfiguration _configuration;
-    private static WebsocketConnection? _websocketConnection = new WebsocketConnection();
-    private static bool _isIdentified;
+    private WebsocketConnection? _websocketConnection;
+    private bool _isIdentified;
     private List<StreamlabsWebsocketMessage> _receivedMessages = new List<StreamlabsWebsocketMessage>();
     private Dictionary<string, StreamlabsWebsocketMessage> _requestsAwaitingResponse = new Dictionary<string, StreamlabsWebsocketMessage>();
     private string Endpoint
@@ -22,6 +22,7 @@ public class StreamlabsWebsocketAdapter : IStreamAdapter
     public StreamlabsWebsocketAdapter(EndpointConfiguration configuration)
     {
         _configuration = configuration;
+        _websocketConnection = new WebsocketConnection();
         _websocketConnection.OnMessageReceived += OnMessageReceived;
     }
     public async Task<bool> ConnectAsync()

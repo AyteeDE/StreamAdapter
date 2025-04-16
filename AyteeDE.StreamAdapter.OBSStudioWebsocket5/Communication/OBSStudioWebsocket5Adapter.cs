@@ -14,7 +14,7 @@ public class OBSStudioWebsocket5Adapter : IStreamAdapter
 {
     private readonly EndpointConfiguration _configuration;
     private WebsocketConnection? _websocketConnection;
-    private static bool _isIdentified;
+    private bool _isIdentified;
     private List<OBSStudioWebsocket5Message> _receivedMessages = new List<OBSStudioWebsocket5Message>();
     private Dictionary<string, OBSStudioWebsocket5Message> _requestsAwaitingResponse = new Dictionary<string, OBSStudioWebsocket5Message>();
     private string Endpoint
