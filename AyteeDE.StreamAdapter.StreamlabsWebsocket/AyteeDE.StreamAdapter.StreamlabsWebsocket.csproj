@@ -15,7 +15,7 @@
 
   <PropertyGroup>
     <PackageId>AyteeDE.StreamAdapter.StreamlabsWebsocket</PackageId>
-    <Version>0.0.5</Version>
+    <Version>0.0.6</Version>
     <Authors>Simon Pawlowski</Authors>
     <Company>AyteeDE</Company>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
